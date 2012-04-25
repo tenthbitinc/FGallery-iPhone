@@ -524,6 +524,9 @@
         barHeight = self.navigationController.navigationBar.frame.size.height;
     }
 	_thumbsView.frame = CGRectMake( 0, barHeight, _container.frame.size.width, _container.frame.size.height-barHeight );
+	if(_thumbsView.bounds.size.height > 0 && _thumbsView.contentOffset.y < _thumbsView.contentInset.top) {
+		[_thumbsView setContentOffset:CGPointMake(_thumbsView.contentOffset.x, -_thumbsView.contentInset.top) animated:NO];
+	}
 }
 
 
