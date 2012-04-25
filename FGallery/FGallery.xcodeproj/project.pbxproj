@@ -15,6 +15,13 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		3CA3AA4B15487C7A003942FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		3CA3AA5615487C95003942FD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		3CA3AA5715487C95003942FD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
+		3CA3AA5815487C95003942FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AC3F5412D670D8004C32B8 /* QuartzCore.framework */; };
+		3CA3AA5A15487CC4003942FD /* FGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AC3F4212D66ACF004C32B8 /* FGalleryViewController.m */; };
+		3CA3AA5C15487CC4003942FD /* FGalleryPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AC3F4012D66ACF004C32B8 /* FGalleryPhotoView.m */; };
+		3CA3AA5E15487CC4003942FD /* FGalleryPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AC3F3E12D66ACF004C32B8 /* FGalleryPhoto.m */; };
 		775D12D712D68D7200872F74 /* photo-gallery-trashcan.png in Resources */ = {isa = PBXBuildFile; fileRef = 775D12D312D68D7200872F74 /* photo-gallery-trashcan.png */; };
 		775D12D812D68D7200872F74 /* photo-gallery-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 775D12D412D68D7200872F74 /* photo-gallery-right.png */; };
 		775D12D912D68D7200872F74 /* photo-gallery-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 775D12D512D68D7200872F74 /* photo-gallery-left.png */; };
@@ -41,6 +48,8 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		28F335F01007B36200424DE2 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3CA3AA4A15487C7A003942FD /* libFGalleryLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFGalleryLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CA3AA7115487FBC003942FD /* FGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGallery.h; sourceTree = SOURCE_ROOT; };
 		775D12D312D68D7200872F74 /* photo-gallery-trashcan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-gallery-trashcan.png"; sourceTree = "<group>"; };
 		775D12D412D68D7200872F74 /* photo-gallery-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-gallery-right.png"; sourceTree = "<group>"; };
 		775D12D512D68D7200872F74 /* photo-gallery-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-gallery-left.png"; sourceTree = "<group>"; };
@@ -70,6 +79,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3CA3AA4715487C7A003942FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CA3AA5615487C95003942FD /* UIKit.framework in Frameworks */,
+				3CA3AA4B15487C7A003942FD /* Foundation.framework in Frameworks */,
+				3CA3AA5715487C95003942FD /* CoreGraphics.framework in Frameworks */,
+				3CA3AA5815487C95003942FD /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -89,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* FGallery.app */,
+				3CA3AA4A15487C7A003942FD /* libFGalleryLib.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +164,7 @@
 		77EFAE5D14927B40005BE43F /* FGallery */ = {
 			isa = PBXGroup;
 			children = (
+				3CA3AA7115487FBC003942FD /* FGallery.h */,
 				77AC3F4112D66ACF004C32B8 /* FGalleryViewController.h */,
 				77AC3F4212D66ACF004C32B8 /* FGalleryViewController.m */,
 				77AC3F3F12D66ACF004C32B8 /* FGalleryPhotoView.h */,
@@ -165,6 +187,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		3CA3AA4815487C7A003942FD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		1D6058900D05DD3D006BFB54 /* FGallery */ = {
 			isa = PBXNativeTarget;
@@ -182,6 +214,23 @@
 			productName = FGallery;
 			productReference = 1D6058910D05DD3D006BFB54 /* FGallery.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3CA3AA4915487C7A003942FD /* FGalleryLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CA3AA5415487C7A003942FD /* Build configuration list for PBXNativeTarget "FGalleryLib" */;
+			buildPhases = (
+				3CA3AA4615487C7A003942FD /* Sources */,
+				3CA3AA4715487C7A003942FD /* Frameworks */,
+				3CA3AA4815487C7A003942FD /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FGalleryLib;
+			productName = FGalleryLib;
+			productReference = 3CA3AA4A15487C7A003942FD /* libFGalleryLib.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -207,6 +256,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* FGallery */,
+				3CA3AA4915487C7A003942FD /* FGalleryLib */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +294,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3CA3AA4615487C7A003942FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3CA3AA5A15487CC4003942FD /* FGalleryViewController.m in Sources */,
+				3CA3AA5C15487CC4003942FD /* FGalleryPhotoView.m in Sources */,
+				3CA3AA5E15487CC4003942FD /* FGalleryPhoto.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -257,7 +317,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = FGallery_Prefix.pch;
 				INFOPLIST_FILE = "FGallery-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = FGallery;
 				SDKROOT = iphoneos;
 			};
@@ -271,8 +330,57 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = FGallery_Prefix.pch;
 				INFOPLIST_FILE = "FGallery-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.1;
 				PRODUCT_NAME = FGallery;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3CA3AA5215487C7A003942FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/FGalleryLib.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FGallery_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3CA3AA5315487C7A003942FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/FGalleryLib.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FGallery_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -285,6 +393,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "02611E8C-0F50-4688-BC58-1DC7F38AE727";
 				SDKROOT = iphoneos;
 			};
@@ -298,6 +407,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};
@@ -311,6 +421,15 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3CA3AA5415487C7A003942FD /* Build configuration list for PBXNativeTarget "FGalleryLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3CA3AA5215487C7A003942FD /* Debug */,
+				3CA3AA5315487C7A003942FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
