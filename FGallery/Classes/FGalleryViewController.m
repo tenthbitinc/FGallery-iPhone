@@ -112,6 +112,9 @@
          _scroller.layer.borderColor = [[UIColor redColor] CGColor];
          _scroller.layer.borderWidth = 2.0;
          */
+        
+        _photoLoadingOperationQueue = [[NSOperationQueue alloc] init];
+        _photoLoadingOperationQueue.maxConcurrentOperationCount = 2;
 	}
 	return self;
 }
@@ -698,12 +701,18 @@
 // creates all the image views for this gallery
 - (void)buildViews
 {
+    Class photoGalleryPhotoViewClass = [FGalleryPhotoView class];
+    if([_photoSource respondsToSelector:@selector(photoGalleryPhotoClass:)]){
+        photoGalleryPhotoViewClass = [_photoSource photoGalleryPhotoClass:self];
+    }
+    
 	NSUInteger i, count = [_photoSource numberOfPhotosForPhotoGallery:self];
 	for (i = 0; i < count; i++) {
-		FGalleryPhotoView *photoView = [[FGalleryPhotoView alloc] initWithFrame:CGRectZero];
+		FGalleryPhotoView *photoView = [(FGalleryPhotoView*)[photoGalleryPhotoViewClass alloc] initWithFrame:CGRectZero];
 		photoView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		photoView.autoresizesSubviews = YES;
 		photoView.photoDelegate = self;
+        [photoView setTag:i];
 		[_scroller addSubview:photoView];
 		[_photoViews addObject:photoView];
 		[photoView release];
@@ -714,11 +723,20 @@
 - (void)buildThumbsViewPhotos
 {
 	NSUInteger i, count = [_photoSource numberOfPhotosForPhotoGallery:self];
+    
+    Class photoGalleryPhotoViewClass = [FGalleryPhotoView class];
+    if([_photoSource respondsToSelector:@selector(photoGalleryThumbsClass:)]){
+        photoGalleryPhotoViewClass = [_photoSource photoGalleryThumbsClass:self];
+    }
+    
 	for (i = 0; i < count; i++) {
 		
-		FGalleryPhotoView *thumbView = [[FGalleryPhotoView alloc] initWithFrame:CGRectZero target:self action:@selector(handleThumbClick:)];
+        
+        
+		FGalleryPhotoView *thumbView = [(FGalleryPhotoView*)[photoGalleryPhotoViewClass alloc] initWithFrame:CGRectZero target:self action:@selector(handleThumbClick:)];
 		[thumbView setContentMode:UIViewContentModeScaleAspectFill];
 		[thumbView setClipsToBounds:YES];
+		thumbView.photoDelegate = self;
 		[thumbView setTag:i];
 		[_thumbsView addSubview:thumbView];
 		[_photoThumbnailViews addObject:thumbView];
@@ -823,6 +841,9 @@
 	FGalleryPhotoView *photoView = (FGalleryPhotoView*)[(UIButton*)sender superview];
 	[self hideThumbnailViewWithAnimation:YES];
 	[self gotoImageByIndex:photoView.tag animated:NO];
+    
+    FGalleryPhotoView *fullPhotoView = [_photoViews objectAtIndex:photoView.tag];
+    [fullPhotoView openWithThumbClick];
 }
 
 
@@ -1034,8 +1055,10 @@
 	FGalleryPhotoView *photoView = [_photoViews objectAtIndex:photo.tag];
 	
 	// if the gallery photo hasn't loaded the fullsize yet, set the thumbnail as its image.
-	if( !photo.hasFullsizeLoaded )
+	if( !photo.hasFullsizeLoaded ) {
 		photoView.imageView.image = photo.thumbnail;
+        [photoView didLoadThumb];
+    }
 
 	[photoView.activity stopAnimating];
 	
@@ -1054,11 +1077,16 @@
 	{
 		FGalleryPhotoView *photoView = [_photoViews objectAtIndex:photo.tag];
 		photoView.imageView.image = photo.fullsize;
+        [photoView didLoadFullsize];
 	}
 	// otherwise, we don't need to keep this image around
 	else [photo unloadFullsize];
 }
 
+- (NSOperationQueue*) galleryPhotoNeedsOperationQueueForImageLoading:(FGalleryPhoto *)photo
+{
+    return _photoLoadingOperationQueue;
+}
 
 #pragma mark - UIScrollView Methods
 

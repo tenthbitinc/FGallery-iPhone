@@ -56,6 +56,8 @@ typedef enum
     
 	UIBarButtonItem *_nextButton;
 	UIBarButtonItem *_prevButton;
+    
+    NSOperationQueue *_photoLoadingOperationQueue;
 }
 
 - (id)initWithPhotoSource:(NSObject<FGalleryViewControllerDelegate>*)photoSrc;
@@ -93,5 +95,8 @@ typedef enum
 // the photosource must implement one of these methods depending on which FGalleryPhotoSourceType is specified 
 - (NSString*)photoGallery:(FGalleryViewController*)gallery filePathForPhotoSize:(FGalleryPhotoSize)size atIndex:(NSUInteger)index;
 - (NSString*)photoGallery:(FGalleryViewController*)gallery urlForPhotoSize:(FGalleryPhotoSize)size atIndex:(NSUInteger)index;
+
+- (Class) photoGalleryThumbsClass:(FGalleryViewController*)gallery;
+- (Class) photoGalleryPhotoClass:(FGalleryViewController*)gallery;
 
 @end

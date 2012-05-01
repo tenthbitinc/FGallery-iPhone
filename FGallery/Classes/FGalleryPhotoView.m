@@ -89,6 +89,21 @@
 	self.contentSize = CGSizeMake(self.frame.size.width * self.zoomScale, self.frame.size.height * self.zoomScale );
 }
 
+- (void)didLoadThumb
+{
+    // empty for now
+}
+
+- (void)didLoadFullsize
+{
+    // empty for now
+}
+
+- (void)openWithThumbClick
+{
+    
+}
+
 - (void)setFrame:(CGRect)theFrame
 {
 	// store position of the image view if we're scaled or panned so we can stay at that point

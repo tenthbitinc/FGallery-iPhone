@@ -71,6 +71,8 @@
 - (void)galleryPhoto:(FGalleryPhoto*)photo didLoadThumbnail:(UIImage*)image;
 - (void)galleryPhoto:(FGalleryPhoto*)photo didLoadFullsize:(UIImage*)image;
 
+- (NSOperationQueue*) galleryPhotoNeedsOperationQueueForImageLoading:(FGalleryPhoto*)photo;
+
 @optional
 - (void)galleryPhoto:(FGalleryPhoto*)photo willLoadThumbnailFromUrl:(NSString*)url;
 - (void)galleryPhoto:(FGalleryPhoto*)photo willLoadFullsizeFromUrl:(NSString*)url;

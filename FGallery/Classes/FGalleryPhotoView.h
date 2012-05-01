@@ -28,6 +28,9 @@
 - (id)initWithFrame:(CGRect)frame target:(id)target action:(SEL)action;
 
 - (void)resetZoom;
+- (void)didLoadThumb;
+- (void)didLoadFullsize;
+- (void)openWithThumbClick;
 
 @property (nonatomic,assign) NSObject <FGalleryPhotoViewDelegate> *photoDelegate;
 @property (nonatomic,readonly) UIImageView *imageView;

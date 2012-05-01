@@ -86,8 +86,11 @@
 		
 		_isThumbLoading = YES;
 		
-		// spawn a new thread to load from disk
-		[NSThread detachNewThreadSelector:@selector(loadThumbnailInThread) toTarget:self withObject:nil];
+        NSOperationQueue *operationQueue = [_delegate galleryPhotoNeedsOperationQueueForImageLoading:self];
+        NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^(void) {
+            [self loadThumbnailInThread];
+        }];
+        [operationQueue addOperation:op];
 	}
 }
 
@@ -123,7 +126,13 @@
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	NSString *path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], _fullsizeUrl];
+    NSString *path = nil;
+    if([_fullsizeUrl hasPrefix:@"/"]) {
+        path = _fullsizeUrl;
+    }else{
+        path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], _fullsizeUrl];
+    }
+    
 	_fullsize = [[UIImage imageWithContentsOfFile:path] retain];
 	
 	_hasFullsizeLoaded = YES;
@@ -139,7 +148,12 @@
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	NSString *path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], _thumbUrl];
+    NSString *path = nil;
+    if([_thumbUrl hasPrefix:@"/"]) {
+        path = _thumbUrl;
+    }else{
+        path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], _thumbUrl];
+    }
 	_thumbnail = [[UIImage imageWithContentsOfFile:path] retain];
 	
 	_hasThumbLoaded = YES;
