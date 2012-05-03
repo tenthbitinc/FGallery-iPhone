@@ -989,6 +989,10 @@
 	// assign the photo index
 	photo.tag = index;
 	
+    if(index < 200) {
+        photo.renderThumbnailInThread = YES;
+    }
+    
 	// store it
 	[_photoLoaders setObject:photo forKey: [NSString stringWithFormat:@"%i", index]];
 	

@@ -25,6 +25,8 @@
 // cleanup
 - (void)killThumbnailLoadObjects;
 - (void)killFullsizeLoadObjects;
+
+-(UIImage*) decompressedThumbnailImageUsingData_:(NSData*)data;
 @end
 
 
@@ -33,6 +35,7 @@
 @synthesize thumbnail = _thumbnail;
 @synthesize fullsize = _fullsize;
 @synthesize delegate = _delegate;
+@synthesize renderThumbnailInThread;
 @synthesize isFullsizeLoading = _isFullsizeLoading;
 @synthesize hasFullsizeLoaded = _hasFullsizeLoaded;
 @synthesize isThumbLoading = _isThumbLoading;
@@ -144,6 +147,76 @@
 }
 
 
+-(UIImage*) decompressedThumbnailImageUsingData_:(NSData*)data
+{
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+    CGImageRef image = nil;
+
+    image = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    if(!image) {
+        image = CGImageCreateWithPNGDataProvider(dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    }
+    // use the data provider to get a CGImage; release the data provider
+    CGDataProviderRelease(dataProvider);
+    
+    if(!image) {
+        return nil;
+    }
+    
+    // make a bitmap context of a suitable size to draw to, forcing decode
+    size_t width = CGImageGetWidth(image);
+    size_t height = CGImageGetHeight(image);
+    
+    CGSize newSize = CGSizeMake(width, height);
+    
+    static BOOL retinaChecked = NO;
+    static BOOL isRetina = NO;
+    if(!retinaChecked) {
+        retinaChecked = YES;
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2){
+            isRetina = YES;
+        }
+    }
+    
+    CGFloat targetBoxSize = isRetina ? 150 : 75;
+
+    if(width > height) {
+        newSize = CGSizeMake(targetBoxSize, roundf(newSize.height/newSize.width*targetBoxSize));
+    }else{
+        newSize = CGSizeMake(roundf(newSize.width/newSize.height*targetBoxSize), targetBoxSize);
+    }
+    
+    width = newSize.width;
+    height = newSize.height;
+    
+    unsigned char *imageBuffer = (unsigned char *)malloc(width*height*4);
+    
+    CGColorSpaceRef colourSpace = CGColorSpaceCreateDeviceRGB();
+    
+    CGContextRef imageContext =
+    CGBitmapContextCreate(imageBuffer, width, height, 8, width*4, colourSpace,
+                          kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    
+    CGColorSpaceRelease(colourSpace);
+    
+    // draw the image to the context, release it
+    CGContextSetInterpolationQuality(imageContext,kCGInterpolationHigh);
+    CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), image);
+    CGImageRelease(image);
+    
+    // now get an image ref from the context
+    CGImageRef outputImage = CGBitmapContextCreateImage(imageContext);
+    
+    UIImage *ret = [UIImage imageWithCGImage:outputImage];
+    
+    // clean up
+    CGImageRelease(outputImage);
+    CGContextRelease(imageContext);
+    free(imageBuffer);
+    
+    return ret;
+}
+
 - (void)loadThumbnailInThread
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -154,7 +227,18 @@
     }else{
         path = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] bundlePath], _thumbUrl];
     }
-	_thumbnail = [[UIImage imageWithContentsOfFile:path] retain];
+    
+    UIImage *decompressedImage = nil;
+    
+    if(self.renderThumbnailInThread) {
+        decompressedImage = [self decompressedThumbnailImageUsingData_:[NSData dataWithContentsOfFile:path]];
+    }
+    
+    if(decompressedImage) {
+        _thumbnail = [decompressedImage retain];
+    }else{
+        _thumbnail = [[UIImage imageWithContentsOfFile:path] retain];
+    }
 	
 	_hasThumbLoaded = YES;
 	_isThumbLoading = NO;
