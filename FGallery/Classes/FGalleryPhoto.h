@@ -52,6 +52,7 @@
 @property NSUInteger tag;
 
 @property (readwrite,atomic) BOOL renderThumbnailInThread;
+@property (readwrite,atomic) BOOL sourceHasAlpha;
 
 @property (readonly) BOOL isThumbLoading;
 @property (readonly) BOOL hasThumbLoaded;

@@ -36,6 +36,7 @@
 @synthesize fullsize = _fullsize;
 @synthesize delegate = _delegate;
 @synthesize renderThumbnailInThread;
+@synthesize sourceHasAlpha;
 @synthesize isFullsizeLoading = _isFullsizeLoading;
 @synthesize hasFullsizeLoaded = _hasFullsizeLoaded;
 @synthesize isThumbLoading = _isThumbLoading;
@@ -163,6 +164,11 @@
         return nil;
     }
     
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(image);
+    if(alphaInfo == kCGImageAlphaFirst || alphaInfo == kCGImageAlphaLast || alphaInfo == kCGImageAlphaOnly || alphaInfo == kCGImageAlphaPremultipliedFirst || alphaInfo == kCGImageAlphaPremultipliedLast) {
+        self.sourceHasAlpha = YES;
+    }
+    
     // make a bitmap context of a suitable size to draw to, forcing decode
     size_t width = CGImageGetWidth(image);
     size_t height = CGImageGetHeight(image);
@@ -238,6 +244,10 @@
         _thumbnail = [decompressedImage retain];
     }else{
         _thumbnail = [[UIImage imageWithContentsOfFile:path] retain];
+        CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(_thumbnail.CGImage);
+        if(alphaInfo == kCGImageAlphaFirst || alphaInfo == kCGImageAlphaLast || alphaInfo == kCGImageAlphaOnly || alphaInfo == kCGImageAlphaPremultipliedFirst || alphaInfo == kCGImageAlphaPremultipliedLast) {
+            self.sourceHasAlpha = YES;
+        }
     }
 	
 	_hasThumbLoaded = YES;

@@ -36,6 +36,7 @@
 @property (nonatomic,readonly) UIImageView *imageView;
 @property (nonatomic,readonly) UIButton *button;
 @property (nonatomic,readonly) UIActivityIndicatorView *activity;
+@property (nonatomic) BOOL hasAlpha;
 
 @end
 

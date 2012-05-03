@@ -22,7 +22,7 @@
 @synthesize imageView;
 @synthesize activity = _activity;
 @synthesize button = _button;
-
+@synthesize hasAlpha;
 
 - (id)initWithFrame:(CGRect)frame
 {

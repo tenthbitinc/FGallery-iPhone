@@ -1057,6 +1057,7 @@
 {
 	// grab the associated image view
 	FGalleryPhotoView *photoView = [_photoViews objectAtIndex:photo.tag];
+    photoView.hasAlpha = photo.sourceHasAlpha;
 	
 	// if the gallery photo hasn't loaded the fullsize yet, set the thumbnail as its image.
 	if( !photo.hasFullsizeLoaded ) {
@@ -1068,6 +1069,7 @@
 	
 	// grab the thumbail view and set its image
 	FGalleryPhotoView *thumbView = [_photoThumbnailViews objectAtIndex:photo.tag];
+    thumbView.hasAlpha = photo.sourceHasAlpha;
 	thumbView.imageView.image = image;
 	[thumbView.activity stopAnimating];
 }
