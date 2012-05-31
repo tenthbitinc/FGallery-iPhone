@@ -71,6 +71,7 @@
 @synthesize currentIndex = _currentIndex;
 @synthesize thumbsView = _thumbsView;
 @synthesize toolBar = _toolbar;
+@dynamic barItems;
 @synthesize useThumbnailView = _useThumbnailView;
 @synthesize startingIndex = _startingIndex;
 @synthesize beginsInThumbnailView = _beginsInThumbnailView;
@@ -137,6 +138,16 @@
 		[_barItems addObjectsFromArray:items];
 	}
 	return self;
+}
+
+- (NSArray*)barItems
+{
+    return [_barItems copy];
+}
+
+- (void)setBarItems:(NSArray *)barItems
+{
+    [_barItems setArray:barItems];
 }
 
 

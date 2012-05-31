@@ -74,6 +74,7 @@ typedef enum
 @property NSInteger startingIndex;
 @property (nonatomic,assign) NSObject<FGalleryViewControllerDelegate> *photoSource;
 @property (nonatomic,readonly) UIToolbar *toolBar;
+@property (nonatomic,retain) NSArray *barItems;
 @property (nonatomic,readonly) UIView* thumbsView;
 @property (nonatomic,retain) NSString *galleryID;
 @property (nonatomic) BOOL useThumbnailView;
