@@ -285,6 +285,13 @@
         // start on first image
         [self gotoImageByIndex:_currentIndex animated:NO];
         
+        // toggle into the thumb view if we should start there
+        self.useThumbnailView = _useThumbnailView;
+        if (_beginsInThumbnailView && _useThumbnailView) {
+            [self showThumbnailViewWithAnimation:NO];
+            [self loadAllThumbViewPhotos];
+        }
+        
         // layout
         [self layoutViews];
     }
