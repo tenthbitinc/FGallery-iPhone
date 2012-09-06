@@ -237,6 +237,7 @@
     [_barItems release], _barItems = nil;
     [_nextButton release], _nextButton = nil;
     [_prevButton release], _prevButton = nil;
+    [_container removeObserver:self forKeyPath:@"frame"];
     [_container release], _container = nil;
     [_innerContainer release], _innerContainer = nil;
     [_scroller release], _scroller = nil;
