@@ -150,7 +150,7 @@
 
 -(UIImage*) decompressedThumbnailImageUsingData_:(NSData*)data
 {
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
     CGImageRef image = nil;
 
     image = CGImageCreateWithJPEGDataProvider(dataProvider, NULL, NO, kCGRenderingIntentDefault);
